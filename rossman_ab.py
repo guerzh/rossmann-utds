@@ -32,7 +32,7 @@ def get_data_categ(data):
 
 
 data = read_csv("data/train.csv", low_memory=False)
-store_means = DataFrame(data.groupby("Store").mean()["Sales"])
+store_means = DataFrame(data.groupby("Store").median()["Sales"])
 store_means["Store"] = store_means.index
 store_means.columns = ["SalesMean", "Store"]
 data = data.merge(store_means, on = ["Store"])
@@ -103,7 +103,7 @@ submit = True
 if submit:
     submission = DataFrame()
     submission["Id"] = data_test["Id"]
-    pred = lr.predict(data_test_x.as_matrix())
+    pred = exp(lr.predict(data_test_x.as_matrix()))-1
     pred = around(pred.astype(double)).astype(int32)
     pred = maximum(0, pred)
     
