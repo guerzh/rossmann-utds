@@ -142,4 +142,3 @@ if submit:
     
     submission["Sales"] = pred
     submission.to_csv("submission.csv", index=False)
-
