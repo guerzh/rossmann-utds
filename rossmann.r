@@ -1,6 +1,6 @@
 DATA_DIR = 'C:/Users/Guerzhoy/Desktop/utds/rossmann/'
 setwd(DATA_DIR)
-
+set.seed(0)
 
 data = read.csv("data/train.csv")
 data_stores = read.csv("data/store.csv")
@@ -38,7 +38,10 @@ for(i in 100:120){
   
   
   valid_data = d[idx[1:round(nrow(d)*.1)],]
-  train_data = d[idx[round(nrow(d)*.1)+1:length(idx)],]
+  test_data = d[idx[round(nrow(d)*.1)+1:idx[round(nrow(d)*.2)],]
+  train_data = d[idx[round(nrow(d)*.2)+1:length(idx)],]
+  
+  
   
   ml = lm(Sales ~   factor(DayOfWeek) + factor(Promo) + factor(Month), data=train_data)
   pred = predict.lm(ml, valid_data)
